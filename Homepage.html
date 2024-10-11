@@ -10,22 +10,6 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-        <script>
-            window.onload = function() {
-
-                //localStorage.setItem('userStatus', 'loggedIn');
-                // ตรวจสอบค่าที่เก็บใน localStorage
-                const userStatus = localStorage.getItem('userStatus');  // เปลี่ยน 'userStatus' ให้ตรงกับคีย์ที่คุณใช้
-    
-                if (userStatus === null) {
-                    // ถ้า localStorage ไม่มีค่า ให้ไปหน้า Homelogin.html
-                    window.location.href = 'Homelogin.html';
-                } else {
-                    // ถ้า localStorage มีค่าแล้ว ให้ไปหน้า homepage.html
-                    window.location.href = 'Homepage.html';
-                }
-            }
-        </script>
 </head>
 
 <body>

@@ -22,7 +22,7 @@ loginform.addEventListener("submit" , (e)=>{
     const password = loginform.password.value
     signInWithEmailAndPassword(auth,email,password)
     .then((result)=>{
-        window.location.href = "index.html";  
+        window.location.href = "Homepage.html";  
     }).catch((error)=>{
         const errorCode = error.code;
         const errorMessage = error.message;
