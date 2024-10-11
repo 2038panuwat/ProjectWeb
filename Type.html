@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+    <link rel="stylesheet" href="type.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+    <div class="menu">
+        <ion-icon name="menu-outline"></ion-icon>
+        <ion-icon name="close-outline"></ion-icon>
+    </div>
+
+    <div class="barra-lateral">
+        <div>
+            <div class="nombre-pagina">
+                <!-- <ion-icon id="cloud" name="cloud-outline"></ion-icon> -->
+                <img id="cloud" name="cloud-outline" src="image/smallcoolstylish.png" alt="">
+                <span>Admin</span>
+            </div>
+            <!-- <button class="boton">
+                <ion-icon name="add-outline"></ion-icon>
+                <span>Create new</span>
+            </button> -->
+        </div>
+
+        <nav class="navegacion">
+            <ul>
+                <!-- <li>
+                    <a id="inbox" href="#">
+                        <ion-icon name="mail-unread-outline"></ion-icon>
+                        <span>Inbox</span>
+                    </a>
+                </li> -->
+                <li>
+                    <a id="inbox" href="index.html">
+                        <ion-icon name="people-outline"></ion-icon>
+                        <span>Member</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <ion-icon name="keypad-outline"></ion-icon>
+                        <span>Type</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Report.html">
+                        <ion-icon name="repeat-outline"></ion-icon>
+                        <span>Report</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Post.html">
+                        <ion-icon name="reader-outline"></ion-icon>
+                        <span>Post</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div>
+            <div class="linea"></div>
+
+            <div class="modo-oscuro">
+                <div class="info">
+                    <ion-icon name="moon-outline"></ion-icon>
+                    <span>Drak Mode</span>
+                </div>
+                <div class="switch">
+                    <div class="base">
+                        <div class="circulo">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="navegacion">
+                <ul>
+                    <li>
+                        <a id="inbox" href="Homelogin.html">
+                            <ion-icon name="exit-outline"></ion-icon>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+
+    <!-- main -->
+    <main>
+        <div class="search-box">
+            <input type="text" class="search-txt" id="searchInput" placeholder="What's on your mind..."
+                oninput="searchReports()">
+        </div>
+        <section>
+            
+            <form id="addType">
+                <h1>Insert Type</h1>
+                <div class="inputbox">
+                    <input type="type" required name="name">
+                    <label for="name">Type</label>
+                </div>
+                <button type="submit">
+                    <h2>Insert</h2>
+                </button>
+            </form>
+
+        </section>
+
+        <div class="container">
+            <div class="containerreport" id="contai">
+                <!-- <div class="report-con">
+                    <div class="report-item">
+                        <div class="report-detail">
+                            <h2></h2>
+                        </div>
+
+                        <div class="report-button">
+                            <div class="report-button-left">
+                                <button><a href="#divOne" ><h3>Edit</h3></a></button>
+                            </div>
+                            <div class="report-button-right">
+                                <button>delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>  -->
+            </div>
+        </div>
+    </main>
+    <!-- main -->
+    <!-- script -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://rerofya.github.io/resources/sweetalert.js"></script>
+    <script src="/script.js"></script>
+    <script src="Type.js" type="module"></script>
+
+    <!-- search -->
+    <script>
+        function searchReports() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+
+            let reportItems = document.querySelectorAll('.containerreport .report-item');
+
+            reportItems.forEach(function (item) {
+                let reportText = item.querySelector('.report-detail h2').textContent.toLowerCase();
+
+                if (reportText.includes(input)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+    </script>
+
+    <!-- script -->
+
+</body>
+
+</html>

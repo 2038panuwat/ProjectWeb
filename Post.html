@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+    <link rel="stylesheet" href="Post.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+    <div class="menu">
+        <ion-icon name="menu-outline"></ion-icon>
+        <ion-icon name="close-outline"></ion-icon>
+    </div>
+
+    <div class="barra-lateral">
+        <div>
+            <div class="nombre-pagina">
+                <!-- <ion-icon id="cloud" name="cloud-outline"></ion-icon> -->
+                <img id="cloud" name="cloud-outline" src="image/smallcoolstylish.png" alt="">
+                <span>Admin</span>
+            </div>
+            <!-- <button class="boton">
+                <ion-icon name="add-outline"></ion-icon>
+                <span>Create new</span>
+            </button> -->
+        </div>
+
+        <nav class="navegacion">
+            <ul>
+                <!-- <li>
+                    <a id="inbox" href="#">
+                        <ion-icon name="mail-unread-outline"></ion-icon>
+                        <span>Inbox</span>
+                    </a>
+                </li> -->
+                <li>
+                    <a  id="inbox" href="index.html">
+                        <ion-icon name="people-outline"></ion-icon>
+                        <span>Member</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Type.html">
+                        <ion-icon name="keypad-outline"></ion-icon>
+                        <span>Type</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Report.html">
+                        <ion-icon name="repeat-outline"></ion-icon>
+                        <span>Report</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Post.html">
+                        <ion-icon name="reader-outline"></ion-icon>
+                        <span>Post</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div>
+            <div class="linea"></div>
+
+            <div class="modo-oscuro">
+                <div class="info">
+                    <ion-icon name="moon-outline"></ion-icon>
+                    <span>Drak Mode</span>
+                </div>
+                <div class="switch">
+                    <div class="base">
+                        <div class="circulo">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <nav class="navegacion">
+                <ul>
+                    <li>
+                        <a id="inbox" href="Homelogin.html">
+                            <ion-icon name="exit-outline"></ion-icon> 
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>       
+
+        </div>
+
+    </div>
+
+    <main>
+        <div class="search-box">
+            <input type="text" class="search-txt" name="" placeholder="What's on your mind?">
+        </div>
+        <div class="form">
+            <form id="postForm" class="sub-form">
+                <div class="upper-form">
+                    <h2>Insert Post</h2>
+                    <label>Username</label><br>
+                    <input type="text" name="username" required><br>
+                    <label>Name Post</label> <br>
+                    <input type="text" name="postname" required> <br>
+                    <label>Content</label> <br>
+                    <input type="text" name="content" required> <br>
+                    <label>Image</label> <br>
+                    <input type="file" name="image" accept="images/*" multiple required> <br>
+                    <label>Type</label> <br>
+                    <input type="text" name="type" required> <br>
+                    <div class="btn">
+                        <button type="submit">Insert</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- <div class="contai">
+        <div class="containerpost">
+            <div class="post-con">
+                <div class="post-item">
+                    <div class="post-img">
+                        <img src="data:image/jpeg;base64,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" alt="">
+                    </div>
+                    <div class="post-detail">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, facilis.
+                    </div>
+                    <div class="post-button">
+                        <div class="post-button-left">
+                            <button>edit</button>
+                        </div>
+                        <div class="post-button-right">
+                            <button>delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="contai">
+        <div class="containerpost">
+            
+        </div>
+    </div>
+    </main>
+
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="/script.js"></script>
+    <script src="Post.js" type="module"></script>
+</body>
+</html>
