@@ -517,54 +517,20 @@ button:hover {
     grid-gap: 0.5rem;
 }
 
-.post-detail {
-    padding: 0.5rem;
-}
-
-/* .post-con{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-    grid-gap: 0.5rem;
-} */
-
-.post-img img {
-    width: 100%;
-}
-
-.post-item {
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    transition: 0.1s;
-}
-
-.post-item:hover {
-    border: 1px solid rgb(81, 192, 226);
-}
-
-.post-button {
+.detail {
     display: flex;
-    padding: 1rem;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    padding: 0.5rem;
+    width: 100%;
+    height: 90px;
+    background: #a7a7a7;
+    border-radius: 20px;
 }
 
-.post-button-left button {
-    padding: 12px 12px;
-    border-radius: 50px;
-    color: white;
-    margin-top: 1rem;
-    border-width: 0;
-    background-color: green;
-    font-weight: 600;
-    width: 100%;
-}
-
-.post-button-right button {
-    padding: 12px 12px;
-    border-radius: 50px;
-    color: white;
-    margin-top: 1rem;
-    border-width: 0;
-    background-color: red;
-    font-weight: 600;
-    width: 100%;
+.detail label {
+    font-size: 25px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-right: 10px;
+    font-weight: bold;
 }

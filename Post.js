@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc , getDocs, deleteDoc, doc, setDoc} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
 
 // const firebaseConfig = {
@@ -23,6 +23,33 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
+
+async function getTypes(db) {
+    const tpCol = collection(db, 'type');
+    const tpSnapshot = await getDocs(tpCol);
+    return tpSnapshot;
+}
+
+const data = await getTypes(db);
+const container = document.getElementById('contai'); // Target the containerpost div by ID
+
+data.forEach(doc => {
+    const typeData = doc.data(); // Get the actual data from the document
+
+    // Create a new div for each type
+    const detailDiv = document.createElement('div');
+    detailDiv.classList.add('detail');
+
+    // Create a new label for each type
+    const label = document.createElement('label');
+    label.textContent = typeData.type_name; // Adjust this to your actual field name in Firestore
+
+    // Append the label to the detail div
+    detailDiv.appendChild(label);
+
+    // Append the detail div to the container
+    container.appendChild(detailDiv);
+});
 
 document.getElementById('postForm').addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -57,8 +84,17 @@ document.getElementById('postForm').addEventListener('submit', async function (e
             type_name,
             p_time: new Date()
         });
+        swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Insert Success',
+            timer: 2000
+        });
 
-        alert('Post added successfully!');
+        setTimeout(() => {
+            location.reload();
+        }, 3000);
+
         e.target.reset(); // เคลียร์ฟอร์ม
 
     } catch (error) {
