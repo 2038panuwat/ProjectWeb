@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getFirestore, collection, getDocs ,deleteDoc, doc} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";  // ใช้สำหรับ Storage
+
 // const firebaseConfig = {
 //     apiKey: "AIzaSyBBXJtPii5Ol6urOCKw_hYauPFssNIrhhE",
 //     authDomain: "coolstylish-9bf43.firebaseapp.com",
@@ -22,6 +23,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
 const storage = getStorage(app);
+
 
 async function getUsers(db) {
     const userCol = collection(db, 'users')

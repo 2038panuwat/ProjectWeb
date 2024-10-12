@@ -1,16 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getFirestore, collection, addDoc , getDocs, deleteDoc, doc, setDoc} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
 
-// const firebaseConfig = {
-//     apiKey: "AIzaSyBBXJtPii5Ol6urOCKw_hYauPFssNIrhhE",
-//     authDomain: "coolstylish-9bf43.firebaseapp.com",
-//     projectId: "coolstylish-9bf43",
-//     storageBucket: "coolstylish-9bf43.appspot.com",
-//     messagingSenderId: "469231142298",
-//     appId: "1:469231142298:web:9e3a04c5a8fb747a3c6623",
-//     measurementId: "G-4SDT95RN2B"
-//   };
 const firebaseConfig = {
     apiKey: "AIzaSyDnonwFrsPeBaNlutgXSvXPvUUJ5Jnn25U",
     authDomain: "database-app-12de5.firebaseapp.com",
@@ -31,24 +22,14 @@ async function getTypes(db) {
 }
 
 const data = await getTypes(db);
-const container = document.getElementById('contai'); // Target the containerpost div by ID
+const typeSelect = document.querySelector('select[name="type"]');
 
 data.forEach(doc => {
-    const typeData = doc.data(); // Get the actual data from the document
-
-    // Create a new div for each type
-    const detailDiv = document.createElement('div');
-    detailDiv.classList.add('detail');
-
-    // Create a new label for each type
-    const label = document.createElement('label');
-    label.textContent = typeData.type_name; // Adjust this to your actual field name in Firestore
-
-    // Append the label to the detail div
-    detailDiv.appendChild(label);
-
-    // Append the detail div to the container
-    container.appendChild(detailDiv);
+    const typeData = doc.data();
+    const option = document.createElement('option');
+    option.value = doc.id; // ใช้ document ID เป็น value
+    option.textContent = typeData.type_name; // แสดงชื่อประเภท
+    typeSelect.appendChild(option);
 });
 
 document.getElementById('postForm').addEventListener('submit', async function (e) {
@@ -58,7 +39,7 @@ document.getElementById('postForm').addEventListener('submit', async function (e
     const p_name_style = e.target.postname.value;
     const p_subtitle = e.target.content.value;
     const imageFiles = e.target.image.files; // ใช้หลายไฟล์
-    const type_name = e.target.type.value;
+    // const type_id = e.target.type.value; // ใช้ type_id แทน type_name
     const p_image = []; // สร้างอาเรย์เก็บ URL ของรูปภาพ
 
     try {
@@ -73,17 +54,20 @@ document.getElementById('postForm').addEventListener('submit', async function (e
         // รอให้การอัปโหลดทั้งหมดเสร็จสิ้น
         p_image.push(...await Promise.all(uploadPromises));
 
-        console.log(p_image);
+        const userId = localStorage.getItem("userId");
 
         // Step 2: เพิ่มข้อมูลโพสต์ใน Firestore
         await addDoc(collection(db, 'post'), {
+            p_id: userId,
             p_username,
             p_name_style,
             p_subtitle,
             p_image, // เก็บ URL ของรูปภาพทั้งหมด
-            type_name,
+            // type_id, // เก็บ type_id แทน type_name
+            type_name: typeSelect.options[typeSelect.selectedIndex].text,
             p_time: new Date()
         });
+
         swal.fire({
             icon: 'success',
             title: 'Success',
@@ -102,4 +86,3 @@ document.getElementById('postForm').addEventListener('submit', async function (e
         alert('Failed to add post. Please try again.');
     }
 });
-

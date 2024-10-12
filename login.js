@@ -20,12 +20,17 @@ loginform.addEventListener("submit" , (e)=>{
     e.preventDefault()
     const email = loginform.email.value
     const password = loginform.password.value
-    signInWithEmailAndPassword(auth,email,password)
-    .then((result)=>{
-        window.location.href = "Homepage.html";  
-    }).catch((error)=>{
+    signInWithEmailAndPassword(auth, email, password)
+    .then((result) => {
+        const userId = result.user.uid;  // ดึงค่า UID ของผู้ใช้
+        localStorage.setItem("userId", userId);  // เก็บค่า UID ไว้ใน localStorage
+
+        // เมื่อเข้าสู่ระบบสำเร็จ ให้ไปยังหน้า Homepage.html
+        window.location.href = "Homepage.html";
+    })
+    .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert(`Login error Please check your password.`);
-    })
+        alert(`เกิดข้อผิดพลาด: ${errorMessage}. กรุณาตรวจสอบรหัสผ่านของคุณ`);
+    });
 })

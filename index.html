@@ -14,11 +14,12 @@
             window.onload = function() {
 
                 const userStatus = localStorage.getItem('userStatus');  
-    
                 if (userStatus === null) {
                     window.location.href = 'Homelogin.html';
+                    
                 } else {
                     window.location.href = 'Homepage.html';
+                    
                 }
             }
         </script>
