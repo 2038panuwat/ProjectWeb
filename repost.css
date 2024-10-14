@@ -403,7 +403,7 @@ main.min-main {
 }
 
 .container {
-    max-width: 1800px;
+    max-width: 1600px;
     margin: 0 auto;
 }
 
@@ -416,8 +416,8 @@ main.min-main {
 
 .swiper {
     width: 100%; 
-    width: 350px; 
-    height: 400px;
+    width: 180px; 
+    height: 350px;
     margin: 50px auto;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -464,14 +464,14 @@ main.min-main {
 
 .containerswiper{
     width: 380px;
-    height: 640px; /*แก้อันนี้*/
+    height: 600px; /*แก้อันนี้*/
     margin: 0 auto;
     background-color: #fff;
     border-radius: 5px;
 }
 .containerswiper h3{
     text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin-top: 10px;
 }
 .containerswiper h5{
@@ -483,7 +483,7 @@ main.min-main {
 .containerswiper h6{
     font-family: Arial, Helvetica, sans-serif;
     margin-left: 30px;
-    margin-bottom: 65px;
+    margin-bottom: 30px;
 }
 
 .contaibut{

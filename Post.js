@@ -35,10 +35,10 @@ data.forEach(doc => {
 document.getElementById('postForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    const p_username = e.target.username.value;
     const p_name_style = e.target.postname.value;
     const p_subtitle = e.target.content.value;
     const imageFiles = e.target.image.files; // ใช้หลายไฟล์
+    const p_hastag = e.target.hastag.value;
     // const type_id = e.target.type.value; // ใช้ type_id แทน type_name
     const p_image = []; // สร้างอาเรย์เก็บ URL ของรูปภาพ
 
@@ -58,11 +58,11 @@ document.getElementById('postForm').addEventListener('submit', async function (e
 
         // Step 2: เพิ่มข้อมูลโพสต์ใน Firestore
         await addDoc(collection(db, 'post'), {
+            p_hastag,
             p_id: userId,
-            p_username,
             p_name_style,
             p_subtitle,
-            p_image, // เก็บ URL ของรูปภาพทั้งหมด
+            p_image, 
             // type_id, // เก็บ type_id แทน type_name
             type_name: typeSelect.options[typeSelect.selectedIndex].text,
             p_time: new Date()
