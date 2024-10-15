@@ -38,25 +38,23 @@ document.getElementById('postForm').addEventListener('submit', async function (e
     const p_name_style = e.target.postname.value;
     const p_subtitle = e.target.content.value;
     const imageFiles = e.target.image.files; // ใช้หลายไฟล์
-    const p_hastag = e.target.hastag.value;
+    const p_hastag = "#"+e.target.hastag.value;
+    console.log(p_hastag);
     // const type_id = e.target.type.value; // ใช้ type_id แทน type_name
-    const p_image = []; // สร้างอาเรย์เก็บ URL ของรูปภาพ
+    const p_image = [];
 
     try {
-        // Step 1: อัปโหลดภาพทั้งหมดไปยัง Firebase Storage
         const uploadPromises = Array.from(imageFiles).map(async (imageFile) => {
             const storageRef = ref(storage, `images/${imageFile.name}`);
             await uploadBytes(storageRef, imageFile);
             const imageUrl = await getDownloadURL(storageRef);
-            return imageUrl; // คืนค่า URL ของภาพ
+            return imageUrl; 
         });
 
-        // รอให้การอัปโหลดทั้งหมดเสร็จสิ้น
         p_image.push(...await Promise.all(uploadPromises));
 
         const userId = localStorage.getItem("userId");
 
-        // Step 2: เพิ่มข้อมูลโพสต์ใน Firestore
         await addDoc(collection(db, 'post'), {
             p_hastag,
             p_id: userId,
@@ -79,7 +77,7 @@ document.getElementById('postForm').addEventListener('submit', async function (e
             location.reload();
         }, 3000);
 
-        e.target.reset(); // เคลียร์ฟอร์ม
+        e.target.reset(); 
 
     } catch (error) {
         console.error("Error adding post: ", error);
