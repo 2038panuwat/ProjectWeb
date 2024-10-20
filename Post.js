@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
 
 const firebaseConfig = {
@@ -38,9 +38,9 @@ document.getElementById('postForm').addEventListener('submit', async function (e
     const p_name_style = e.target.postname.value;
     const p_subtitle = e.target.content.value;
     const imageFiles = e.target.image.files; // ใช้หลายไฟล์
-    const p_hastag = "#"+e.target.hastag.value;
+    const p_hastag = e.target.hastag.value;
+    const p_ref = "";
     console.log(p_hastag);
-    // const type_id = e.target.type.value; // ใช้ type_id แทน type_name
     const p_image = [];
 
     try {
@@ -55,29 +55,48 @@ document.getElementById('postForm').addEventListener('submit', async function (e
 
         const userId = localStorage.getItem("userId");
 
-        await addDoc(collection(db, 'post'), {
-            p_hastag,
-            p_id: userId,
-            p_name_style,
-            p_subtitle,
-            p_image, 
-            // type_id, // เก็บ type_id แทน type_name
-            type_name: typeSelect.options[typeSelect.selectedIndex].text,
-            p_time: new Date()
-        });
+        // ดึง username จาก Firestore โดยใช้ userId
+        const userDocRef = doc(db, 'users', userId);
+        const userDocSnap = await getDoc(userDocRef);
 
-        swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'Insert Success',
-            timer: 2000
-        });
+        if (userDocSnap.exists()) {
+            const username = userDocSnap.data().user_name;
+            console.log(username);
 
-        setTimeout(() => {
-            location.reload();
-        }, 3000);
+            // ดึง typeId จาก typeSelect
+            const typeId = typeSelect.value;
+            const typeDocRef = doc(db, 'type', typeId); // สร้าง reference ไปยัง document ใน collection 'type'
 
-        e.target.reset(); 
+            await addDoc(collection(db, 'post'), {
+                p_hastag,
+                p_id: userId,
+                p_name_style,
+                p_subtitle,
+                p_image, 
+                type_name: typeSelect.options[typeSelect.selectedIndex].text,
+                type_id: typeDocRef, // เพิ่ม reference ลงใน document
+                p_time: new Date(),
+                p_ref,
+                p_username: username, 
+                p_edite_post: false
+            });
+
+            swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Insert Success',
+                timer: 2000
+            });
+
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+
+            e.target.reset(); 
+        } else {
+            console.error("No such user document!");
+            alert('Failed to add post. User not found.');
+        }
 
     } catch (error) {
         console.error("Error adding post: ", error);
