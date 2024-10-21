@@ -14,23 +14,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app)
 
-const loginform = document.getElementById("loginForm")
+const loginform = document.getElementById("loginForm");
 
-loginform.addEventListener("submit" , (e)=>{
-    e.preventDefault()
-    const email = loginform.email.value
-    const password = loginform.password.value
-    signInWithEmailAndPassword(auth, email, password)
-    .then((result) => {
-        const userId = result.user.uid;  // ดึงค่า UID ของผู้ใช้
-        localStorage.setItem("userId", userId);  // เก็บค่า UID ไว้ใน localStorage
+loginform.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-        // เมื่อเข้าสู่ระบบสำเร็จ ให้ไปยังหน้า Homepage.html
-        window.location.href = "Homepage.html";
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(`เกิดข้อผิดพลาด: ${errorMessage}. กรุณาตรวจสอบรหัสผ่านของคุณ`);
-    });
-})
+    const email = loginform.email.value;
+    const password = loginform.password.value;
+
+    // เช็คว่าอีเมลเป็น coolstylish@gmail.com หรือไม่
+    if (email === "coolstylish@gmail.com") {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((result) => {
+                const userId = result.user.uid;  // ดึงค่า UID ของผู้ใช้
+                localStorage.setItem("userId", userId);  // เก็บค่า UID ไว้ใน localStorage
+
+                // เมื่อเข้าสู่ระบบสำเร็จ ให้ไปยังหน้า Homepage.html
+                window.location.href = "Homepage.html";
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                alert(`เกิดข้อผิดพลาด: ${errorMessage}. กรุณาตรวจสอบรหัสผ่านของคุณ`);
+            });
+    } else {
+        alert("อีเมลนี้ไม่สามารถเข้าสู่ระบบได้");
+    }
+});
