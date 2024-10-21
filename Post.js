@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
 
 const firebaseConfig = {
@@ -14,6 +14,105 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
+
+// async function getpost(db) {
+//     const tpCol = collection(db, 'post')
+//     const tpSnapshot = await getDocs(tpCol)
+//     return tpSnapshot
+// }
+
+
+// const datapost = await getpost(db);
+// datapost.forEach(post => {
+//     showData(post)
+// })
+// async function showData(post){
+//     const userId = localStorage.getItem("userId");
+
+//     const userDocRef = doc(db, 'users', userId);
+//     const userDocSnap = await getDoc(userDocRef);
+
+//     if (userDocSnap.exists()) {
+//         const username = userDocSnap.data().username;
+//         console.log(username);
+//     }
+
+//     const containerReport = document.getElementById('contai');
+  
+//     const reportItem = document.createElement('div');
+//     reportItem.className = 'report-item';
+  
+//     const reportDetail = document.createElement('div');
+//     reportDetail.className = 'report-detail';
+  
+//     const reportName = document.createElement('h2');
+//     reportName.innerText = post.data().p_username;
+//     reportDetail.appendChild(reportName);
+//     reportItem.appendChild(reportDetail);
+  
+//     // Append report-item to containerReport
+//     containerReport.appendChild(reportItem);
+// }
+// Place the complete JavaScript code here (the one I provided in the previous response)
+// This includes getPostsForUser() and showData() functions, along with calling getPostsForUser()
+
+async function getPostsForUser() {
+    const userId = localStorage.getItem("userId"); 
+    console.log("User ID:", userId);
+
+    if (!userId) {
+        console.error("No userId found in localStorage");
+        return;
+    }
+
+    console.log("Fetching posts for userId:", userId); 
+
+    const postsQuery = query(
+        collection(db, "post"),
+        where("userId", "==", userId) 
+    );
+
+    try {
+        const postsSnapshot = await getDocs(postsQuery);
+        if (!postsSnapshot.empty) {
+            const posts = [];
+            postsSnapshot.forEach((post) => {
+                console.log("Post data:", post.data()); 
+                posts.push(post.data());
+            });
+            showData(posts); 
+        } else {
+            console.log("No posts found for this user.");
+        }
+    } catch (error) {
+        console.error("Error fetching posts: ", error);
+    }
+}
+function showData(posts) {
+    console.log("Displaying posts:", posts); 
+    const containerReport = document.getElementById("contai");
+
+    posts.forEach((postData) => {
+        const reportItem = document.createElement("div");
+        reportItem.className = "report-item";
+
+        const reportDetail = document.createElement("div");
+        reportDetail.className = "report-detail";
+
+        const reportName = document.createElement("h2");
+        reportName.innerText = postData.p_username || "No username"; 
+        const reportSubtitle = document.createElement("p");
+        reportSubtitle.innerText = postData.p_subtitle || "No subtitle"; 
+
+        reportDetail.appendChild(reportName);
+        reportDetail.appendChild(reportSubtitle);
+        reportItem.appendChild(reportDetail);
+
+        containerReport.appendChild(reportItem);
+    });
+}
+
+
 
 async function getTypes(db) {
     const tpCol = collection(db, 'type');

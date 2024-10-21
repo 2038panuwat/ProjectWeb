@@ -463,6 +463,32 @@ button:hover {
     grid-gap: 0.5rem;
 }
 
+.report-detail{
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.report-detail h2{
+    color: #000000;   
+    
+}
+
+.report-con{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    grid-gap: 0.5rem;
+}
+.report-item{
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: 0.1s;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+.report-item:hover{
+    border: 1px solid rgb(19, 250, 219);
+}
 .detail {
     display: flex;
     justify-content: center;
